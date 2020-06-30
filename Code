@@ -1,0 +1,27 @@
+Option Explicit
+
+Function truck(r As Double, d As Double, f As Double, w As Double, c As Boolean) As Double
+Dim i As Integer, a As Double, b As Double, GR As Double, z As Double
+Dim x1 As Double, x2 As Double
+Dim fx1 As Double, fx2 As Double
+GR = (Sqr(5) - 1) / 2
+a = 30
+b = 100
+For i = 1 To 20
+    z = GR * (b - a)
+    x1 = a + z
+    x2 = b - z
+    fx1 = -(6.12 - w / 60000) * 0.92 ^ ((x1 - 55) / 5)
+    fx2 = -(6.12 - w / 60000) * 0.92 ^ ((x2 - 55) / 5)
+    If fx1 < fx2 Then
+        a = x2
+    Else
+        b = x1
+    End If
+Next i
+If c = True Then
+truck = (x1 + x2) / 2
+Else
+truck = (r * ((x1 + x2) / 2) / d) - (f * ((x1 + x2) / 2) / ((fx1 + fx2) / 2))
+End If
+End Function
